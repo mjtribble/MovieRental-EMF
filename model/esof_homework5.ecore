@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="esof_homework5" nsURI="http://www.example.org/esof_homework5"
+    nsPrefix="esof_homework5">
+  <eClassifiers xsi:type="ecore:EClass" name="Rental">
+    <eOperations name="getCharge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="daysRented" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="renter" lowerBound="1"
+        eType="#//Customer" eOpposite="#//Customer/rentals"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="movie" lowerBound="1" eType="#//Movie"
+        eOpposite="#//Movie/movRentals"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PriceCode">
+    <eLiterals name="regular"/>
+    <eLiterals name="family" value="1"/>
+    <eLiterals name="newRelease" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Movie">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priceCode" eType="#//PriceCode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="movRentals" upperBound="-1"
+        eType="#//Rental" eOpposite="#//Rental/movie"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Customer">
+    <eOperations name="statement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mumRentals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rentals" upperBound="-1"
+        eType="#//Rental" eOpposite="#//Rental/renter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="charges" upperBound="-1"
+        eType="#//Charge" eOpposite="#//Charge/cust"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Charge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="chargeValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="chargeT" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cust" lowerBound="1" eType="#//Customer"
+        eOpposite="#//Customer/charges"/>
+  </eClassifiers>
+</ecore:EPackage>
