@@ -82,7 +82,6 @@ public class RentalImpl extends MinimalEObjectImpl.Container implements Rental {
 	 * @generated
 	 */
 	protected RentalImpl() {
-		super();
 	}
 
 	/**

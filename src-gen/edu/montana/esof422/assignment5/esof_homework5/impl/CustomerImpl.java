@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -108,6 +109,7 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	 */
 	protected CustomerImpl() {
 		super();
+		this.charges = new BasicEList<Charge>();
 	}
 
 	/**
@@ -195,24 +197,31 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	 * @generated NOT
 	 */
 	public void statement() {
+		Esof_homework5FactoryImpl factory = new Esof_homework5FactoryImpl();
 		int counter = 1;
-		System.out.print("Name: " + this.name + "\n" + 
-						"Number or Rentals: " + this.rentals.size()+ "\n" );
-
+		System.out.print("Rental Statement for " + this.name + "\n\n" + 
+						"Number or Rentals: " + this.rentals.size()+ "\n\n" );
+		
 		for(Rental ren : this.rentals)
 		{
-			System.out.print(counter + ")\n" +
+			Charge chg = factory.createCharge();
+			String title = ren.getMovie().getTitle();
+			double charge = ren.getCharge();
+			
+			chg.setChargeValue(charge);
+			chg.setChargeT(title);
+			this.charges.add(chg);
+			
+			
+			System.out.print(counter + ") " +
 							"Title: " + ren.getMovie().getTitle() + "\n" +
-							"Charge: " + ren.getCharge());
+							"Days Rented: " + ren.getDaysRented() + "\n" +
+							"Charge: " + ren.getCharge() + "\n\n"
+							);
+			counter++;
 		}
-//		 ren.getAmount(); 
-//		sm:=ren.getMovie();
-//		t:=sm.getTitle();
-//		aCharge:= new Charge;
-//		aCharge.chVal:=ch;
-//		aCharge.chT:=t;
-//		insert(self,aCharge) into customerCharges
-//		end
+		
+		System.out.print("Total charges: " + this.getTotalCharge());
 	}
 
 	/**
